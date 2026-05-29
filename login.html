@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - El Sistema</title>
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Segoe UI;
+    background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),
+    url('portal.jpg') center/cover;
+    color:white;
+}
+
+.panel{
+    width:90%;
+    max-width:420px;
+    background:rgba(10,15,25,.92);
+    border:2px solid #00d2ff;
+    border-radius:12px;
+    padding:35px 25px;
+    box-shadow:0 0 35px rgba(0,210,255,.35);
+    backdrop-filter:blur(4px);
+}
+
+.title{
+    text-align:center;
+    font-size:2rem;
+    color:#00d2ff;
+    margin-bottom:10px;
+    text-shadow:0 0 15px rgba(0,210,255,.6);
+}
+
+.subtitle{
+    text-align:center;
+    opacity:.7;
+    margin-bottom:30px;
+}
+
+.input-box{
+    margin-bottom:18px;
+}
+
+.input-box input{
+    width:100%;
+    padding:14px;
+    background:#111827;
+    border:1px solid rgba(0,210,255,.3);
+    border-radius:8px;
+    color:white;
+    box-sizing:border-box;
+    font-size:1rem;
+}
+
+.login-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    background:#00d2ff;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:1rem;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 20px rgba(0,210,255,.4);
+}
+
+.system-text{
+    text-align:center;
+    margin-top:25px;
+    opacity:.6;
+    font-size:.9rem;
+}
+
+</style>
+</head>
+<body>
+
+<div class="panel">
+
+<div class="title">EL SISTEMA</div>
+
+<div class="subtitle">
+Ingresa para continuar tu evolución.
+</div>
+
+<div class="input-box">
+<input type="text" id="username" placeholder="Nombre del cazador">
+</div>
+
+<div class="input-box">
+<input type="password" id="password" placeholder="Contraseña">
+</div>
+
+<button class="login-btn" onclick="login()">
+INGRESAR
+</button>
+
+<div class="system-text">
+[SYSTEM ACCESS REQUIRED]
+</div>
+
+</div>
+<script>
+
+const loginSound = new Audio('login_efec.wav');
+
+loginSound.volume = 0.7;
+
+function login(){
+
+    loginSound.currentTime = 0;
+
+    loginSound.play();
+
+    const username = document.getElementById('username').value;
+
+    if(username.trim() === ''){
+
+        alert('Ingresa un nombre de cazador');
+
+        return;
+    }
+
+    localStorage.setItem('hunter_name',username);
+
+    document.body.style.opacity='0';
+
+    setTimeout(()=>{
+
+        window.location.href='welcome.html';
+
+    },700);
+}
+
+if ('serviceWorker' in navigator) {
+
+    navigator.serviceWorker.register('sw.js');
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Sistema</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#000000">
+<style>
+
+:root{
+    --bg:#050816;
+    --panel:#0f1728;
+    --blue:#00d2ff;
+    --text:#ffffff;
+}
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#111827,#050816);
+    color:var(--text);
+    font-family:Segoe UI;
+}
+
+.panel{
+    width:90%;
+    max-width:420px;
+    background:rgba(15,23,40,.95);
+    border:2px solid var(--blue);
+    border-radius:10px;
+    padding:40px 25px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(0,210,255,.25);
+}
+
+.title{
+    font-size:2rem;
+    color:var(--blue);
+    text-shadow:0 0 15px rgba(0,210,255,.6);
+    margin-bottom:20px;
+}
+
+.level{
+    font-size:1.3rem;
+    margin-bottom:15px;
+}
+
+.exp-box{
+    background:#111;
+    border-radius:20px;
+    overflow:hidden;
+    height:18px;
+    margin-bottom:25px;
+}
+
+.exp-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00d2ff,#00ff99);
+}
+
+.quote{
+    opacity:.8;
+    margin-bottom:35px;
+    font-style:italic;
+}
+
+.start-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:8px;
+    background:#00d2ff;
+    color:#000;
+    font-size:1rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.start-btn:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 20px rgba(0,210,255,.5);
+}
+
+</style>
+</head>
+<body>
+
+<div class="panel">
+
+<div class="title">EL SISTEMA</div>
+
+<div class="level" id="levelText">
+LVL. 1
+</div>
+
+<div style="margin-bottom:8px;">
+EXP: <span id="xpText">0/100</span>
+</div>
+
+<div class="exp-box">
+<div class="exp-fill" id="xpFill"></div>
+</div>
+
+<div class="quote">
+"Conviértete en el cazador definitivo."
+</div>
+
+<button class="start-btn" onclick="startMission()">
+INICIAR MISIÓN
+</button>
+
+</div>
+
+<script>
+
+let pData = JSON.parse(localStorage.getItem('sl_player')) || {
+    level:1,
+    xp:0,
+    nextLevelXp:100
+};
+
+function renderHome(){
+
+    document.getElementById('levelText').innerText = `LVL. ${pData.level}`;
+
+    document.getElementById('xpText').innerText = `${pData.xp}/${pData.nextLevelXp}`;
+
+    document.getElementById('xpFill').style.width = `${(pData.xp/pData.nextLevelXp)*100}%`;
+}
+
+function startMission(){
+
+    document.body.style.opacity='0';
+
+    setTimeout(()=>{
+        window.location.href='mission.html';
+    },600);
+}
+
+renderHome();
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+}
+
+</script>
+
+</body>
+</html>
