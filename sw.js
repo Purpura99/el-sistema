@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sistema-v18';
+const CACHE_NAME = 'sistema-v21';
 
 const urlsToCache = [
   './',
